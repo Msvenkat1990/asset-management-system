@@ -35,13 +35,13 @@ ensureDatabase().then(() => {
   sequelize
     .sync()
     .then(() => {
-      console.log("✅ Database Synced");
+      console.log("Application Database Synced");
 
       app.listen(3000, () => {
-        console.log("🚀 Server running on port 3000");
+        console.log("Application Server is running on port 3000");
       });
     })
     .catch((err) => {
-      console.error("❌ Sync error:", err);
+      console.error("Application Sync error:", err);
     });
 });
