@@ -8,14 +8,13 @@ async function ensureDatabase() {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: "postgres", // IMPORTANT: default admin DB
+    database: "postgres",
     port: 5432,
   });
 
   try {
     await client.connect();
-
-    // Check if DB exists
+    
     const res = await client.query(
       "SELECT 1 FROM pg_database WHERE datname = $1",
       [dbName],
@@ -24,7 +23,7 @@ async function ensureDatabase() {
     if (res.rowCount === 0) {
       await client.query(`CREATE DATABASE "${dbName}"`);
     } else {
-      console.log(`ℹ Database already exists: ${dbName}`);
+      console.log(`Database already exists: ${dbName}`);
     }
 
     await client.end();
