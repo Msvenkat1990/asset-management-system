@@ -1,0 +1,79 @@
+extends layout
+
+block content
+
+  h1.mb-4 Add Employee
+
+  form(method="POST" action="/employees/add")
+
+    .mb-3
+      label.form-label Name
+      input#name.form-control(
+        type="text"
+        name="name"
+        placeholder="Enter Name"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Email
+      input#email.form-control(
+        type="email"
+        name="email"
+        placeholder="Enter Email"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Department
+      input#department.form-control(
+        type="text"
+        name="department"
+        placeholder="Enter Department"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Status
+
+      select#status.form-select(
+        name="status"
+        onchange="toggleButton()"
+      )
+        option(value="") Select Status
+        option(value="active") Active
+        option(value="inactive") Inactive
+
+    button#saveBtn.btn.btn-success(
+      type="submit"
+      disabled
+    )
+      | Save Employee
+
+  script.
+    function toggleButton() {
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const department = document.getElementById("department").value.trim();
+      const status = document.getElementById("status").value;
+
+      const button = document.getElementById("saveBtn");
+
+      if (name !== "" &&
+          email !== "" &&
+          department !== "" &&
+          status !== "") {
+
+        button.disabled = false;
+
+      } else {
+
+        button.disabled = true;
+
+      }
+
+    }

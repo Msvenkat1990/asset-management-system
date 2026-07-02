@@ -1,0 +1,32 @@
+extends layout
+
+block content
+
+ h2.mb-4 Asset History
+
+ h4
+  | Serial Number: #{asset.serialNumber}
+
+ table.table.table-bordered
+
+  thead
+
+   tr
+    th Date
+    th Action
+    th Employee
+    th Reason
+
+  tbody
+
+   each item in history
+
+    tr
+
+     td #{item.createdAt.toLocaleString()}
+
+     td #{item.action}
+
+     td #{item.Employee ? item.Employee.name : "-"}
+
+     td #{item.reason || "-"}

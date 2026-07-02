@@ -1,0 +1,48 @@
+extends layout
+
+block content
+
+ h1.mb-4 Stock View
+
+ table#stockTable.table.table-bordered.table-striped
+
+  thead
+
+   tr
+    th Serial Number
+    th Make
+    th Model
+    th Category
+    th Value
+
+  tbody
+
+   each asset in assets
+
+    tr
+
+     td #{asset.serialNumber}
+
+     td #{asset.make}
+
+     td #{asset.model}
+
+     td #{asset.Category ? asset.Category.name : "-"}
+
+     td ₹#{asset.value}
+
+  tfoot
+
+   tr.table-success
+
+    td(colspan="4")
+     strong Total Value
+
+    td
+     strong ₹#{totalValue}
+
+br
+
+h5
+ | Total Assets in Stock :
+ strong #{totalAssets}

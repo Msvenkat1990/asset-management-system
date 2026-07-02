@@ -1,0 +1,79 @@
+extends layout
+
+block content
+
+  h1.mb-4 Edit Asset
+
+  form(
+    method="POST"
+    action="/assets/update/#{asset.id}"
+  )
+
+    .mb-3
+      label.form-label Asset ID
+
+      input.form-control(
+        type="text"
+        name="assetId"
+        value=asset.assetId
+        readonly
+      )
+
+    .mb-3
+      label.form-label Serial Number
+
+      input.form-control(
+        type="text"
+        name="serialNumber"
+        value=asset.serialNumber
+        required
+      )
+
+    .mb-3
+      label.form-label Make
+
+      input.form-control(
+        type="text"
+        name="make"
+        value=asset.make
+        required
+      )
+
+    .mb-3
+      label.form-label Model
+
+      input.form-control(
+        type="text"
+        name="model"
+        value=asset.model
+        required
+      )
+
+    .mb-3
+      label.form-label Value
+
+      input.form-control(
+        type="number"
+        name="value"
+        value=asset.value
+        required
+      )
+
+    .mb-3
+      label.form-label Category
+
+      select.form-select(
+        name="categoryId"
+        required
+      )
+
+        each cat in categories
+          option(
+            value=cat.id
+            selected=cat.id == asset.CategoryId
+          ) #{cat.name}
+
+    button.btn.btn-warning(
+      type="submit"
+    )
+      | Update Asset

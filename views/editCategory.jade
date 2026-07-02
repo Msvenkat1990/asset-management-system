@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+ h1.mb-4 Edit Category
+
+ form(
+  method="POST"
+  action="/categories/update/#{category.id}"
+ )
+
+  div.mb-3
+
+   label Category Name
+
+   input.form-control(
+    type="text"
+    name="name"
+    value=category.name
+    required
+   )
+
+  button.btn.btn-warning(
+   type="submit"
+  )
+   | Update Category

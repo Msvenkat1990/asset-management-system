@@ -1,0 +1,61 @@
+extends layout
+
+block content
+
+  h1.mb-4 Scrap Asset
+
+  form(
+    method="POST"
+    action="/scrap"
+  )
+
+    .mb-3
+
+      label.form-label Select Asset
+
+      select#assetId.form-select(
+        name="assetId"
+        required
+        onchange="toggleButton()"
+      )
+
+        option(value="")
+          | -- Select Asset --
+
+        each asset in assets
+
+          option(value=asset.id)
+            | #{asset.serialNumber} - #{asset.make}
+
+    .mb-3
+
+      label.form-label Reason
+
+      input#reason.form-control(
+        type="text"
+        name="reason"
+        placeholder="Enter reason for scrap"
+        required
+        oninput="toggleButton()"
+      )
+
+    button#scrapBtn.btn.btn-danger(
+      type="submit"
+      disabled
+    )
+      | Scrap Asset
+
+  script.
+    function toggleButton() {
+
+      const assetId = document.getElementById("assetId").value;
+      const reason = document.getElementById("reason").value.trim();
+      const button = document.getElementById("scrapBtn");
+
+      if (assetId !== "" && reason !== "") {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+
+    }

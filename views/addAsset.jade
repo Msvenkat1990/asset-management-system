@@ -1,0 +1,96 @@
+extends layout
+
+block content
+
+  h1.mb-4 Add Asset
+
+  form(
+    method="POST"
+    action="/assets/add"
+  )
+
+    .mb-3
+      label.form-label Serial Number
+
+      input#serialNumber.form-control(
+        type="text"
+        name="serialNumber"
+        placeholder="Enter Serial Number"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Make
+
+      input#make.form-control(
+        type="text"
+        name="make"
+        placeholder="Enter Make"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Model
+
+      input#model.form-control(
+        type="text"
+        name="model"
+        placeholder="Enter Model"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Value
+
+      input#value.form-control(
+        type="number"
+        name="value"
+        placeholder="Enter Value"
+        required
+        oninput="toggleButton()"
+      )
+
+    .mb-3
+      label.form-label Category
+
+      select#categoryId.form-select(
+        name="categoryId"
+        required
+        onchange="toggleButton()"
+      )
+
+        option(value="")
+          | Select Category
+
+        each cat in categories
+          option(value=cat.id)
+            | #{cat.name}
+
+    button#saveBtn.btn.btn-success(
+      type="submit"
+      disabled
+    )
+      | Save Asset
+
+  script.
+    function toggleButton() {
+
+      const serialNumber = document.getElementById("serialNumber").value.trim();
+      const make = document.getElementById("make").value.trim();
+      const model = document.getElementById("model").value.trim();
+      const value = document.getElementById("value").value.trim();
+      const categoryId = document.getElementById("categoryId").value;
+
+      const button = document.getElementById("saveBtn");
+
+      button.disabled = !(
+        serialNumber &&
+        make &&
+        model &&
+        value &&
+        categoryId
+      );
+    }

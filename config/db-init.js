@@ -1,0 +1,38 @@
+const { Client } = require("pg");
+require("dotenv").config();
+
+async function ensureDatabase() {
+  const dbName = process.env.DB_NAME;
+
+  const client = new Client({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: "postgres", // IMPORTANT: default admin DB
+    port: 5432,
+  });
+
+  try {
+    await client.connect();
+
+    // Check if DB exists
+    const res = await client.query(
+      "SELECT 1 FROM pg_database WHERE datname = $1",
+      [dbName],
+    );
+
+    if (res.rowCount === 0) {
+      await client.query(`CREATE DATABASE "${dbName}"`);
+      console.log(`✅ Database created: ${dbName}`);
+    } else {
+      console.log(`ℹ Database already exists: ${dbName}`);
+    }
+
+    await client.end();
+  } catch (err) {
+    console.error("❌ DB init error:", err.message);
+    process.exit(1);
+  }
+}
+
+module.exports = ensureDatabase;

@@ -1,0 +1,71 @@
+extends layout
+
+block content
+
+  h1.mb-4 Return Asset
+
+  form(
+    method="POST"
+    action="/return"
+  )
+
+    .mb-3
+
+      label.form-label Select Asset
+
+      select#assetId.form-select(
+        name="assetId"
+        required
+        onchange="toggleButton()"
+      )
+
+        option(value="")
+          | -- Select Asset --
+
+        each asset in assets
+
+          option(value=asset.id)
+            | #{asset.serialNumber} - #{asset.make} #{asset.model}
+
+    .mb-3
+
+      label.form-label Reason
+
+      select#reason.form-select(
+        name="reason"
+        required
+        onchange="toggleButton()"
+      )
+
+        option(value="")
+          | -- Select Reason --
+
+        option(value="Upgrade")
+          | Upgrade
+
+        option(value="Repair")
+          | Repair
+
+        option(value="Resignation")
+          | Resignation
+
+    button#returnBtn.btn.btn-success(
+      type="submit"
+      disabled
+    )
+      | Return Asset
+
+  script.
+    function toggleButton() {
+
+      const assetId = document.getElementById("assetId").value;
+      const reason = document.getElementById("reason").value;
+      const button = document.getElementById("returnBtn");
+
+      if (assetId !== "" && reason !== "") {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+
+    }

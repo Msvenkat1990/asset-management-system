@@ -1,0 +1,79 @@
+extends layout
+
+block content
+
+  h1.mb-4 Asset List
+
+  if message
+    .alert.alert-success
+      | #{message}
+
+  a.btn.btn-primary.mb-3(
+    href="/assets/add"
+  )
+    | Add Asset
+
+  table#assetTable.table.table-bordered.table-striped.mt-3
+
+    thead
+
+      tr
+        th Asset ID
+        th Serial Number
+        th Make
+        th Model
+        th Category
+        th Value
+        th Status
+        th(style="width:260px") Action
+
+    tbody
+
+      each asset in assets
+
+        tr
+
+          td #{asset.assetId}
+
+          td #{asset.serialNumber}
+
+          td #{asset.make}
+
+          td #{asset.model}
+
+          td #{asset.Category ? asset.Category.name : "No Category"}
+
+          td ₹#{asset.value}
+
+          td
+            if asset.status == "stock"
+              span.badge.bg-success Stock
+            else if asset.status == "issued"
+              span.badge.bg-warning.text-dark Issued
+            else
+              span.badge.bg-danger Scrap
+
+          td
+
+            .d-flex.gap-2
+
+              a.btn.btn-sm.btn-warning(
+                href="/assets/edit/#{asset.id}"
+              )
+                | Edit
+
+              a.btn.btn-sm.btn-danger(
+                href="/assets/delete/#{asset.id}"
+                onclick="return confirm('Are you sure you want to delete this asset?')"
+              )
+                | Delete
+
+              a.btn.btn-sm.btn-info.text-white(
+                href="/history/#{asset.id}"
+              )
+                | History
+
+  script.
+    $(document).ready(function () {
+      $('#assetTable').DataTable();
+    });

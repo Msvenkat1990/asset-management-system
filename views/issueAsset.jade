@@ -1,0 +1,67 @@
+extends layout
+
+block content
+
+  h1.mb-4 Issue Asset
+
+  form(
+    method="POST"
+    action="/issue"
+  )
+
+    .mb-3
+
+      label.form-label Select Asset
+
+      select#assetId.form-select(
+        name="assetId"
+        required
+        onchange="toggleButton()"
+      )
+
+        option(value="")
+          | -- Select Asset --
+
+        each asset in assets
+
+          option(value=asset.id)
+            | #{asset.serialNumber} - #{asset.make} #{asset.model}
+
+    .mb-3
+
+      label.form-label Select Employee
+
+      select#employeeId.form-select(
+        name="employeeId"
+        required
+        onchange="toggleButton()"
+      )
+
+        option(value="")
+          | -- Select Employee --
+
+        each emp in employees
+
+          option(value=emp.id)
+            | #{emp.name}
+
+    button#issueBtn.btn.btn-success(
+      type="submit"
+      disabled
+    )
+      | Issue Asset
+
+  script.
+    function toggleButton() {
+
+      const assetId = document.getElementById("assetId").value;
+      const employeeId = document.getElementById("employeeId").value;
+      const button = document.getElementById("issueBtn");
+
+      if (assetId !== "" && employeeId !== "") {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+
+    }

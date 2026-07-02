@@ -1,0 +1,33 @@
+extends layout
+
+block content
+
+  h1.mb-4 Add Category
+
+  form(method="POST" action="/categories/add")
+
+    .mb-3
+
+      label.form-label Category Name
+
+      input#categoryName.form-control(
+        type="text"
+        name="name"
+        placeholder="Enter Category Name"
+        required
+        oninput="toggleButton()"
+      )
+
+    button#saveBtn.btn.btn-success(
+      type="submit"
+      disabled
+    )
+      | Save Category
+
+  script.
+    function toggleButton() {
+      const input = document.getElementById("categoryName");
+      const button = document.getElementById("saveBtn");
+
+      button.disabled = input.value.trim() === "";
+    }

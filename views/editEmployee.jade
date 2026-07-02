@@ -1,0 +1,77 @@
+extends layout
+
+block content
+
+  h1.mb-4 Edit Employee
+
+  form(
+    method="POST"
+    action="/employees/update/#{employee.id}"
+  )
+
+    .row
+
+      .col-md-6.mb-3
+
+        label.form-label Name
+
+        input.form-control(
+          type="text"
+          name="name"
+          value=employee.name
+          required
+        )
+
+      .col-md-6.mb-3
+
+        label.form-label Email
+
+        input.form-control(
+          type="email"
+          name="email"
+          value=employee.email
+          required
+        )
+
+      .col-md-6.mb-3
+
+        label.form-label Department
+
+        input.form-control(
+          type="text"
+          name="department"
+          value=employee.department
+          required
+        )
+
+      .col-md-6.mb-3
+
+        label.form-label Status
+
+        select.form-select(
+          name="status"
+        )
+
+          option(
+            value="active"
+            selected=employee.status=="active"
+          )
+            | Active
+
+          option(
+            value="inactive"
+            selected=employee.status=="inactive"
+          )
+            | Inactive
+
+    .mt-3
+
+      button.btn.btn-warning.me-2(
+        type="submit"
+      )
+        | Update Employee
+
+      a.btn.btn-secondary(
+        href="/employees"
+      )
+        | Cancel
