@@ -23,14 +23,12 @@ async function ensureDatabase() {
 
     if (res.rowCount === 0) {
       await client.query(`CREATE DATABASE "${dbName}"`);
-      console.log(`✅ Database created: ${dbName}`);
     } else {
       console.log(`ℹ Database already exists: ${dbName}`);
     }
 
     await client.end();
   } catch (err) {
-    console.error("❌ DB init error:", err.message);
     process.exit(1);
   }
 }
